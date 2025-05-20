@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     const signUpButton = document.getElementById('signUp');
     const signInButton = document.getElementById('signIn');
+    const showSignUpLink = document.getElementById('showSignUp');
     const container = document.getElementById('container');
     const signupForm = document.getElementById('signupForm');
     const loginForm = document.getElementById('loginForm');
@@ -14,6 +15,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     signInButton.addEventListener('click', () => {
         container.classList.remove('right-panel-active');
+    });
+
+    // Show sign up form when "Sign Up" link is clicked
+    showSignUpLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        container.classList.add('right-panel-active');
     });
 
     // Close modal
@@ -33,6 +40,18 @@ document.addEventListener('DOMContentLoaded', function() {
         const password = document.getElementById('signupPassword').value;
         const bankAccountName = document.getElementById('bankAccountName').value;
         
+        // Validate inputs
+        if (!username || !email || !password || !bankAccountName) {
+            showModal('Error', 'Please fill in all fields');
+            return;
+        }
+        
+        // Check if username already exists
+        if (localStorage.getItem(username)) {
+            showModal('Error', 'Username already exists');
+            return;
+        }
+        
         // Save user data to localStorage
         const user = {
             username,
@@ -51,9 +70,7 @@ document.addEventListener('DOMContentLoaded', function() {
         localStorage.setItem('users', JSON.stringify(users));
         
         // Show success message
-        document.getElementById('modalTitle').textContent = 'Success!';
-        document.getElementById('modalMessage').textContent = 'Account created successfully. You can now login.';
-        modal.style.display = 'block';
+        showModal('Success!', 'Account created successfully. You can now login.');
         
         // Reset form
         signupForm.reset();
@@ -79,9 +96,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Redirect to dashboard
             window.location.href = 'dashboard.html';
         } else {
-            document.getElementById('modalTitle').textContent = 'Error';
-            document.getElementById('modalMessage').textContent = 'Invalid username or password. Please try again.';
-            modal.style.display = 'block';
+            showModal('Error', 'Invalid username or password. Please try again.');
         }
     });
 
@@ -91,7 +106,11 @@ document.addEventListener('DOMContentLoaded', function() {
             window.location.href = 'dashboard.html';
         }
     }
-});
 
-// Sample dashboard.html content would go here
-// For completeness, you would create a dashboard.html file with tasks and earnings displa
+    // Helper function to show modal
+    function showModal(title, message) {
+        document.getElementById('modalTitle').textContent = title;
+        document.getElementById('modalMessage').textContent = message;
+        modal.style.display = 'block';
+    }
+})
