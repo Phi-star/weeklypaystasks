@@ -60,6 +60,22 @@ let tasks = [
     { 
         id: 8, 
         title: "Watch Video 8 on YouTube", 
+        description: "Watch our second tutorial video", 
+        reward: 20, 
+        link: "https://youtube.com", 
+        completed: false 
+    },
+    { 
+        id: 9, 
+        title: "Watch Video 9 on YouTube", 
+        description: "Watch our second tutorial video", 
+        reward: 20, 
+        link: "https://youtube.com", 
+        completed: false 
+    },
+    { 
+        id: 10, 
+        title: "Watch Video 10 on YouTube", 
         description: "Watch our eighth tutorial video", 
         reward: 10, 
         link: "https://youtube.com", 
@@ -190,34 +206,39 @@ function checkSpinEligibility() {
     const now = new Date();
     const lastSpinDate = user.lastSpinDate ? new Date(user.lastSpinDate) : null;
     
-    // Changed to require ALL tasks completed
     const allTasksCompleted = user.completedTasks && user.completedTasks.length === tasks.length;
-    
-    const canSpinThisWeek = !lastSpinDate || 
-                         (now - lastSpinDate) > (7 * 24 * 60 * 60 * 1000);
+    const canSpinThisWeek = !lastSpinDate || (now - lastSpinDate) > (7 * 24 * 60 * 60 * 1000);
     
     if (allTasksCompleted && canSpinThisWeek) {
         spinBtn.disabled = false;
-        spinStatus.textContent = "Spin available!";
+        spinBtn.classList.add('pulse');
+        spinStatus.textContent = "Spin available! Click to win big!";
     } else if (!allTasksCompleted) {
         spinBtn.disabled = true;
+        spinBtn.classList.remove('pulse');
         const remaining = tasks.length - (user.completedTasks?.length || 0);
-        spinStatus.textContent = `Complete ${remaining} more tasks to unlock spin`;
+        spinStatus.textContent = `Complete ${remaining} more ${remaining === 1 ? 'task' : 'tasks'} to unlock spin`;
     } else {
         spinBtn.disabled = true;
+        spinBtn.classList.remove('pulse');
         const nextSpinDate = new Date(lastSpinDate);
         nextSpinDate.setDate(nextSpinDate.getDate() + 7);
         spinStatus.textContent = `Next spin available: ${nextSpinDate.toLocaleDateString()}`;
     }
 }
 
-spinBtn.addEventListener('click', function() {
+function spinWheel() {
     spinBtn.disabled = true;
+    spinBtn.classList.remove('pulse');
+    wheel.style.transition = 'transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99)';
     
-    // Determine random spin result (but ensure it lands on ×6)
-    const spinDegrees = 2160 + (360 * 7) + 45; // 6 full rotations + 7 segments + 45deg to land on ×6
+    // Calculate final position (always lands on ×6 which is the 8th segment)
+    const segmentAngle = 45; // 360° / 8 segments
+    const spinRotations = 6; // Full rotations
+    const targetSegment = 7; // ×6 is the 8th segment (0-indexed as 7)
+    const finalAngle = (spinRotations * 360) + (targetSegment * segmentAngle) + (segmentAngle / 2);
     
-    wheel.style.transform = `rotate(${spinDegrees}deg)`;
+    wheel.style.transform = `rotate(${-finalAngle}deg)`;
     
     setTimeout(() => {
         const bonus = user.earnings * 6;
@@ -229,7 +250,7 @@ spinBtn.addEventListener('click', function() {
         updateBalance();
         checkSpinEligibility();
         
-        spinResultText.textContent = `Congratulations! You won ×6 bonus: $${bonus.toFixed(2)} has been added to your account.`;
+        spinResultText.textContent = `Jackpot! You won 6× multiplier!\n$${bonus.toFixed(2)} added to your balance.`;
         spinResultModal.style.display = 'block';
         
         setTimeout(() => {
@@ -240,6 +261,99 @@ spinBtn.addEventListener('click', function() {
             }, 10);
         }, 500);
     }, 4000);
+}
+
+function checkDailyTasks() {
+    const today = new Date().toDateString();
+    const lastTaskDate = user.lastTaskDate ? new Date(user.lastTaskDate).toDateString() : null;
+    
+    if (lastTaskDate !== today) {
+        user.completedTasks = [];
+        localStorage.setItem(user.username, JSON.stringify(user));
+    }
+    renderTasks();
+}
+
+// Event Listeners
+spinBtn.addEventListener('click', spinWheel);
+
+logoutBtn.addEventListener('click', function() {
+    localStorage.removeItem('currentUser');
+    window.location.href = 'index.html';
 });
 
-// ... (rest of the existing functions remain the same) ...
+withdrawBtn.addEventListener('click', function() {
+    if (user.earnings < 500) {
+        alert(`Minimum withdrawal is $500. Your balance: $${user.earnings.toFixed(2)}`);
+        return;
+    }
+    withdrawalModal.style.display = 'block';
+});
+
+generatePasscodeLink.addEventListener('click', function(e) {
+    e.preventDefault();
+    document.getElementById('withdrawalForm').style.display = 'none';
+    noPasscodeMessage.style.display = 'block';
+});
+
+backToDashboardBtn.addEventListener('click', function() {
+    withdrawalModal.style.display = 'none';
+    document.getElementById('withdrawalForm').style.display = 'block';
+    noPasscodeMessage.style.display = 'none';
+});
+
+confirmWithdrawBtn.addEventListener('click', function() {
+    const amount = parseFloat(withdrawAmountInput.value);
+    const passcode = passcodeInput.value;
+    
+    if (!amount || amount < 500) {
+        alert('Minimum withdrawal amount is $500');
+        return;
+    }
+    
+    if (amount > user.earnings) {
+        alert('Insufficient balance');
+        return;
+    }
+    
+    if (!passcode) {
+        alert('Please enter passcode');
+        return;
+    }
+    
+    user.earnings -= amount;
+    localStorage.setItem(user.username, JSON.stringify(user));
+    
+    alert(`Withdrawal request for $${amount.toFixed(2)} submitted!\nProcessing may take 3-5 business days.`);
+    withdrawalModal.style.display = 'none';
+    updateBalance();
+    
+    withdrawAmountInput.value = '';
+    passcodeInput.value = '';
+});
+
+closeSpinResultBtn.addEventListener('click', function() {
+    spinResultModal.style.display = 'none';
+});
+
+creatorsLink.addEventListener('click', function(e) {
+    e.preventDefault();
+    alert('Creators Insight program coming soon!');
+});
+
+document.querySelectorAll('.close-modal').forEach(btn => {
+    btn.addEventListener('click', function() {
+        withdrawalModal.style.display = 'none';
+        spinResultModal.style.display = 'none';
+    });
+});
+
+window.addEventListener('click', function(event) {
+    if (event.target === withdrawalModal || event.target === spinResultModal) {
+        withdrawalModal.style.display = 'none';
+        spinResultModal.style.display = 'none';
+    }
+});
+
+// Initialize the app
+init()
