@@ -268,12 +268,13 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-align: center;
 }
 
 .wheel-container {
     position: relative;
-    width: 220px;
-    height: 220px;
+    width: 250px;
+    height: 250px;
     margin: 25px auto;
 }
 
@@ -283,10 +284,11 @@ body {
     border-radius: 50%;
     position: relative;
     overflow: hidden;
-    border: 6px solid #FF4B2B;
-    box-shadow: 0 0 0 6px white, 0 0 0 12px #FF4B2B;
+    border: 8px solid #FF4B2B;
+    box-shadow: 0 0 0 8px white, 0 0 0 16px #FF4B2B;
     transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99);
     transform: rotate(0deg);
+    background: white;
 }
 
 .wheel-item {
@@ -294,46 +296,62 @@ body {
     width: 50%;
     height: 50%;
     transform-origin: bottom right;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--clr);
-    color: white;
-    font-weight: bold;
     left: 0;
     top: 0;
-    padding-left: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 40px;
     box-sizing: border-box;
-    font-size: 15px;
+    font-weight: bold;
+    font-size: 16px;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
 }
 
-.wheel-item:nth-child(1) { transform: rotate(45deg); }
-.wheel-item:nth-child(2) { transform: rotate(90deg); }
-.wheel-item:nth-child(3) { transform: rotate(135deg); }
-.wheel-item:nth-child(4) { transform: rotate(180deg); }
-.wheel-item:nth-child(5) { transform: rotate(225deg); }
-.wheel-item:nth-child(6) { transform: rotate(270deg); }
-.wheel-item:nth-child(7) { transform: rotate(315deg); }
-.wheel-item:nth-child(8) { transform: rotate(360deg); }
+.wheel-item:nth-child(1) { transform: rotate(0deg);    background-color: #FF4B2B; }
+.wheel-item:nth-child(2) { transform: rotate(45deg);   background-color: #FF416C; }
+.wheel-item:nth-child(3) { transform: rotate(90deg);   background-color: #FF4B2B; }
+.wheel-item:nth-child(4) { transform: rotate(135deg);  background-color: #FF416C; }
+.wheel-item:nth-child(5) { transform: rotate(180deg);  background-color: #FF4B2B; }
+.wheel-item:nth-child(6) { transform: rotate(225deg);  background-color: #FF416C; }
+.wheel-item:nth-child(7) { transform: rotate(270deg);  background-color: #FF4B2B; }
+.wheel-item:nth-child(8) { transform: rotate(315deg);  background-color: #FF416C; }
+
+.spin-pointer {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-top: 40px solid #FF4B2B;
+    z-index: 10;
+    filter: drop-shadow(0 3px 3px rgba(0,0,0,0.3));
+}
 
 .spin-btn {
     background-color: #FF4B2B;
     color: white;
     border: none;
-    padding: 14px 35px;
-    border-radius: 6px;
+    padding: 14px 40px;
+    border-radius: 8px;
     cursor: pointer;
     font-weight: 600;
     font-size: 16px;
     margin-top: 25px;
     transition: all 0.3s;
-    box-shadow: 0 4px 10px rgba(255,75,43,0.3);
+    box-shadow: 0 4px 12px rgba(255, 75, 43, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .spin-btn:hover {
     background-color: #e04426;
     transform: translateY(-3px);
-    box-shadow: 0 6px 15px rgba(255,75,43,0.4);
+    box-shadow: 0 6px 16px rgba(255, 75, 43, 0.4);
 }
 
 .spin-btn:disabled {
@@ -343,26 +361,17 @@ body {
     box-shadow: none;
 }
 
-.spin-pointer {
-    position: absolute;
-    top: -18px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 0;
-    height: 0;
-    border-left: 18px solid transparent;
-    border-right: 18px solid transparent;
-    border-top: 35px solid #FF4B2B;
-    z-index: 10;
-    filter: drop-shadow(0 2px 2px rgba(0,0,0,0.2));
+.spin-btn.pulse {
+    animation: pulse 1.5s infinite;
 }
 
 .spin-status {
-    margin-top: 15px;
+    margin-top: 20px;
     text-align: center;
-    font-size: 14px;
+    font-size: 15px;
     color: #666;
     line-height: 1.5;
+    max-width: 80%;
 }
 
 /* Modal Styles */
@@ -486,6 +495,22 @@ body {
     transform: translateY(-2px);
 }
 
+/* Animations */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+@keyframes wheelSpin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(2160deg); }
+}
+
+.spinning {
+    animation: wheelSpin 4s cubic-bezier(0.17, 0.67, 0.12, 0.99) forwards;
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .dashboard-header {
@@ -525,26 +550,9 @@ body {
     .task-action {
         width: 100%;
     }
-}
-
-/* Animation for task completion */
-@keyframes taskComplete {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.03); }
-    100% { transform: scale(1); }
-}
-
-.task-complete-animation {
-    animation: taskComplete 0.5s ease;
-}
-
-/* Pulse animation for spin button */
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
-}
-
-.spin-btn.pulse {
-    animation: pulse 1.5s infinite;
-        }
+    
+    .wheel-container {
+        width: 220px;
+        height: 220px;
+    }
+    }
