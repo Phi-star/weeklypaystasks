@@ -8,102 +8,136 @@
 body {
     background-color: #f5f7fa;
     color: #333;
+    min-height: 100vh;
 }
 
 .creators-insight {
     background-color: #FF4B2B;
     color: white;
-    padding: 10px;
+    padding: 12px;
     text-align: center;
     font-size: 14px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 .creators-insight a {
     color: white;
     font-weight: 600;
     text-decoration: none;
+    transition: all 0.3s;
 }
 
 .creators-insight a:hover {
     text-decoration: underline;
+    opacity: 0.9;
 }
 
 .dashboard-container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 25px 20px;
 }
 
 .dashboard-header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     margin-bottom: 30px;
     padding-bottom: 20px;
     border-bottom: 1px solid #e0e0e0;
+    flex-wrap: wrap;
+    gap: 20px;
 }
 
 .dashboard-header h1 {
-    font-size: 24px;
+    font-size: 26px;
     color: #333;
+    margin-bottom: 10px;
 }
 
-.dashboard-header p {
-    color: #666;
-    font-size: 14px;
+.dashboard-header .welcome-message {
+    flex: 1;
+    min-width: 250px;
+}
+
+.newcomer-bonus {
+    background-color: #fff8e1;
+    padding: 12px 15px;
+    border-radius: 8px;
+    margin-top: 15px;
+    font-size: 15px;
+    border-left: 4px solid #FFA000;
+    color: #5d4037;
+    font-weight: 500;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.newcomer-bonus strong {
+    color: #FF4B2B;
 }
 
 .logout-btn {
     background-color: #FF4B2B;
     color: white;
     border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
+    padding: 10px 22px;
+    border-radius: 6px;
     cursor: pointer;
     font-weight: 500;
+    transition: all 0.3s;
+    box-shadow: 0 2px 5px rgba(255,75,43,0.3);
 }
 
 .logout-btn:hover {
     background-color: #e04426;
+    transform: translateY(-2px);
 }
 
 .balance-card {
     background: linear-gradient(135deg, #FF4B2B, #FF416C);
     color: white;
-    border-radius: 10px;
+    border-radius: 12px;
     padding: 25px;
     margin-bottom: 30px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 4px 15px rgba(255, 75, 43, 0.3);
+    box-shadow: 0 6px 18px rgba(255, 75, 43, 0.25);
+    transition: transform 0.3s;
+}
+
+.balance-card:hover {
+    transform: translateY(-3px);
 }
 
 .balance-info h3 {
     font-size: 16px;
     font-weight: 400;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
+    opacity: 0.9;
 }
 
 .balance-info h2 {
-    font-size: 32px;
+    font-size: 34px;
     font-weight: 700;
+    letter-spacing: 0.5px;
 }
 
 .action-btn {
     background-color: white;
     color: #FF4B2B;
     border: none;
-    padding: 12px 25px;
-    border-radius: 5px;
+    padding: 12px 28px;
+    border-radius: 6px;
     cursor: pointer;
     font-weight: 600;
     transition: all 0.3s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 .action-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .dashboard-sections {
@@ -120,13 +154,13 @@ body {
 
 .tasks-section, .spin-section {
     background-color: white;
-    border-radius: 10px;
+    border-radius: 12px;
     padding: 25px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .tasks-section h2, .spin-section h2 {
-    font-size: 20px;
+    font-size: 22px;
     margin-bottom: 20px;
     color: #333;
     display: flex;
@@ -137,72 +171,97 @@ body {
 .task-list {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 16px;
 }
 
 .task-item {
     background-color: #f9f9f9;
-    border-radius: 8px;
-    padding: 15px;
+    border-radius: 10px;
+    padding: 18px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     transition: all 0.3s;
+    border: 1px solid #eee;
 }
 
 .task-item:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-color: #FF4B2B;
+}
+
+.task-info {
+    flex: 1;
 }
 
 .task-info h4 {
     font-size: 16px;
     color: #333;
-    margin-bottom: 5px;
+    margin-bottom: 6px;
+    font-weight: 600;
 }
 
 .task-info p {
     font-size: 14px;
     color: #666;
+    margin-bottom: 8px;
 }
 
 .task-link {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
     margin-top: 8px;
     color: #FF4B2B;
     font-size: 14px;
     text-decoration: none;
     font-weight: 500;
+    transition: all 0.2s;
 }
 
 .task-link:hover {
     text-decoration: underline;
+    color: #e04426;
+}
+
+.task-link i {
+    font-size: 12px;
 }
 
 .task-reward {
     font-weight: 700;
     color: #FF4B2B;
-    margin-right: 15px;
+    margin-right: 20px;
+    font-size: 16px;
+    min-width: 60px;
+    text-align: right;
 }
 
 .task-action {
     background-color: #FF4B2B;
     color: white;
     border: none;
-    padding: 8px 15px;
-    border-radius: 5px;
+    padding: 10px 18px;
+    border-radius: 6px;
     cursor: pointer;
     font-size: 14px;
+    font-weight: 500;
     transition: all 0.3s;
+    min-width: 100px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(255,75,43,0.3);
 }
 
 .task-action:hover {
     background-color: #e04426;
+    transform: translateY(-2px);
 }
 
 .task-action:disabled {
-    background-color: #ccc;
+    background-color: #aaa;
     cursor: not-allowed;
+    transform: none;
 }
 
 .spin-container {
@@ -213,9 +272,9 @@ body {
 
 .wheel-container {
     position: relative;
-    width: 200px;
-    height: 200px;
-    margin: 20px auto;
+    width: 220px;
+    height: 220px;
+    margin: 25px auto;
 }
 
 .wheel {
@@ -224,8 +283,8 @@ body {
     border-radius: 50%;
     position: relative;
     overflow: hidden;
-    border: 5px solid #FF4B2B;
-    box-shadow: 0 0 0 5px white, 0 0 0 10px #FF4B2B;
+    border: 6px solid #FF4B2B;
+    box-shadow: 0 0 0 6px white, 0 0 0 12px #FF4B2B;
     transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99);
     transform: rotate(0deg);
 }
@@ -235,7 +294,6 @@ body {
     width: 50%;
     height: 50%;
     transform-origin: bottom right;
-    transform: rotate(calc(var(--i) * 51.43deg));
     display: flex;
     align-items: center;
     justify-content: center;
@@ -244,44 +302,67 @@ body {
     font-weight: bold;
     left: 0;
     top: 0;
-    padding-left: 30px;
+    padding-left: 35px;
     box-sizing: border-box;
+    font-size: 15px;
 }
+
+.wheel-item:nth-child(1) { transform: rotate(45deg); }
+.wheel-item:nth-child(2) { transform: rotate(90deg); }
+.wheel-item:nth-child(3) { transform: rotate(135deg); }
+.wheel-item:nth-child(4) { transform: rotate(180deg); }
+.wheel-item:nth-child(5) { transform: rotate(225deg); }
+.wheel-item:nth-child(6) { transform: rotate(270deg); }
+.wheel-item:nth-child(7) { transform: rotate(315deg); }
+.wheel-item:nth-child(8) { transform: rotate(360deg); }
 
 .spin-btn {
     background-color: #FF4B2B;
     color: white;
     border: none;
-    padding: 12px 30px;
-    border-radius: 5px;
+    padding: 14px 35px;
+    border-radius: 6px;
     cursor: pointer;
     font-weight: 600;
     font-size: 16px;
-    margin-top: 20px;
+    margin-top: 25px;
     transition: all 0.3s;
+    box-shadow: 0 4px 10px rgba(255,75,43,0.3);
 }
 
 .spin-btn:hover {
     background-color: #e04426;
-    transform: translateY(-2px);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(255,75,43,0.4);
 }
 
 .spin-btn:disabled {
-    background-color: #ccc;
+    background-color: #aaa;
     cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
 }
 
 .spin-pointer {
     position: absolute;
-    top: -15px;
+    top: -18px;
     left: 50%;
     transform: translateX(-50%);
     width: 0;
     height: 0;
-    border-left: 15px solid transparent;
-    border-right: 15px solid transparent;
-    border-top: 30px solid #FF4B2B;
+    border-left: 18px solid transparent;
+    border-right: 18px solid transparent;
+    border-top: 35px solid #FF4B2B;
     z-index: 10;
+    filter: drop-shadow(0 2px 2px rgba(0,0,0,0.2));
+}
+
+.spin-status {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 14px;
+    color: #666;
+    line-height: 1.5;
 }
 
 /* Modal Styles */
@@ -294,61 +375,92 @@ body {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(3px);
 }
 
 .modal-content {
     background-color: #fff;
     margin: 10% auto;
-    padding: 25px;
-    border-radius: 10px;
+    padding: 30px;
+    border-radius: 12px;
     width: 90%;
-    max-width: 500px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    max-width: 450px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
     position: relative;
+    animation: modalFadeIn 0.3s ease-out;
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .close-modal {
     position: absolute;
     right: 20px;
     top: 15px;
-    font-size: 24px;
+    font-size: 26px;
     font-weight: bold;
     color: #aaa;
     cursor: pointer;
+    transition: all 0.2s;
 }
 
 .close-modal:hover {
     color: #333;
+    transform: rotate(90deg);
+}
+
+.modal-content h2 {
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 22px;
 }
 
 .form-group {
-    margin-bottom: 20px;
+    margin-bottom: 22px;
 }
 
 .form-group label {
     display: block;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     font-weight: 500;
     color: #555;
+    font-size: 15px;
 }
 
 .form-group input {
     width: 100%;
-    padding: 12px;
+    padding: 13px 15px;
     border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 16px;
+    border-radius: 6px;
+    font-size: 15px;
+    transition: all 0.3s;
+}
+
+.form-group input:focus {
+    border-color: #FF4B2B;
+    box-shadow: 0 0 0 3px rgba(255, 75, 43, 0.2);
+    outline: none;
 }
 
 .hint {
     font-size: 14px;
     color: #666;
-    margin-top: 8px;
+    margin-top: 10px;
+    line-height: 1.5;
 }
 
 .hint a {
     color: #FF4B2B;
     text-decoration: none;
+    font-weight: 500;
 }
 
 .hint a:hover {
@@ -359,24 +471,26 @@ body {
     background-color: #FF4B2B;
     color: white;
     border: none;
-    padding: 12px 20px;
-    border-radius: 5px;
+    padding: 14px;
+    border-radius: 6px;
     cursor: pointer;
     font-size: 16px;
     font-weight: 500;
     width: 100%;
-    margin-top: 10px;
+    margin-top: 15px;
+    transition: all 0.3s;
 }
 
 .submit-btn:hover {
     background-color: #e04426;
+    transform: translateY(-2px);
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .dashboard-header {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: stretch;
         gap: 15px;
     }
 
@@ -386,8 +500,51 @@ body {
         text-align: center;
     }
 
+    .action-btn {
+        width: 100%;
+    }
+
     .modal-content {
         margin: 20% auto;
-        width: 85%;
+        width: 90%;
+        padding: 25px 20px;
     }
+
+    .task-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
     }
+
+    .task-reward {
+        margin-right: 0;
+        text-align: left;
+        width: 100%;
+    }
+
+    .task-action {
+        width: 100%;
+    }
+}
+
+/* Animation for task completion */
+@keyframes taskComplete {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.03); }
+    100% { transform: scale(1); }
+}
+
+.task-complete-animation {
+    animation: taskComplete 0.5s ease;
+}
+
+/* Pulse animation for spin button */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.spin-btn.pulse {
+    animation: pulse 1.5s infinite;
+        }
