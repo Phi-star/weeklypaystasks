@@ -80,6 +80,30 @@ form {
     text-align: center;
 }
 
+.form-footer {
+    width: 100%;
+    margin: 10px 0;
+    text-align: center;
+}
+
+.forgot-password {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 13px;
+}
+
+.signup-prompt {
+    font-size: 14px;
+    color: #666;
+    margin: 10px 0;
+}
+
+.signup-prompt a {
+    color: #FF4B2B;
+    font-weight: 600;
+    margin: 0;
+}
+
 input {
     background-color: #eee;
     border: none;
@@ -293,4 +317,4 @@ input {
     .container.right-panel-active .sign-up-container {
         transform: none;
     }
-}
+    }
