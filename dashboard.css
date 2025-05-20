@@ -377,3 +377,17 @@ body {
         margin: 20% auto;
         width: 85%;
     }
+
+     .task-link {
+    display: inline-block;
+    margin-top: 8px;
+    color: #FF4B2B;
+    font-size: 14px;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.task-link:hover {
+    text-decoration: underline;
+}
+
